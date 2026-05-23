@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexusForge – Buy License</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/sD1BSmjY/Nexus-Force-Icon-Photoroom.png">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/dQzhSm3R/Nexus-Force-Icon-Transparent.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #0a0a0a;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -20,9 +19,15 @@
             color: #ffffff;
             position: relative;
             overflow-x: hidden;
+            /* Background image with dark overlay */
+            background: 
+                linear-gradient(0deg, rgba(10,10,10,0.85), rgba(10,10,10,0.85)),
+                url('https://i.postimg.cc/yNBYCLzC/Nxs-Forge-Logo-big.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
         }
 
-        /* Enhanced particles */
+        /* Enhanced particles (layered on top of the background) */
         .particles {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 0;
@@ -53,7 +58,6 @@
             text-align: center;
             animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
-            transition: transform 0.2s;
         }
         @keyframes fadeSlideUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -166,7 +170,6 @@
             letter-spacing: 0.5px;
             font-weight: 500;
         }
-        /* Discount styling */
         .original-price {
             font-size: 0.8rem;
             color: #888;
@@ -288,7 +291,7 @@
 <body>
     <div class="particles" id="particles"></div>
     <div class="container">
-        <img class="logo-img" src="https://i.postimg.cc/sD1BSmjY/Nexus-Force-Icon-Photoroom.png" alt="NexusForge Logo" width="84" height="84">
+        <img class="logo-img" src="https://i.postimg.cc/dQzhSm3R/Nexus-Force-Icon-Transparent.png" alt="NexusForge Logo" width="84" height="84">
         <div class="brand-name">NexusForge</div>
         <p class="tagline">Select your plan and enter details</p>
 
@@ -366,6 +369,14 @@
                 container.appendChild(p);
             }
         })();
+
+        // ========== DISABLE RIGHT‑CLICK ON BACKGROUND ==========
+        document.addEventListener('contextmenu', function(e) {
+            // Allow right‑click only inside the .container element
+            if (!e.target.closest('.container')) {
+                e.preventDefault();
+            }
+        });
 
         // ========== PLAN CARD SELECTION ==========
         const cards = document.querySelectorAll('.plan-card');
