@@ -410,15 +410,8 @@
                 const data = await res.json();
                 if (data.success && data.paymentLink) {
                     showSuccess('Redirecting to payment gateway…');
-                    window.open(data.paymentLink, '_blank');
-                    btnText.textContent = 'Payment link opened';
-                    btnSpinner.style.display = 'none';
-                    // Keep disabled for a bit to prevent double-click
-                    setTimeout(() => {
-                        buyBtn.disabled = false;
-                        btnText.textContent = 'Buy Now';
-                        resetMessages();
-                    }, 3000);
+                    // Open in the SAME window
+                    window.location.href = data.paymentLink;
                 } else {
                     showError(data.error || 'Payment link creation failed.');
                     btnText.textContent = 'Buy Now';
