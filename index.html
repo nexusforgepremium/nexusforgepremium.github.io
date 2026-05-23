@@ -9,6 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* The background is now on a pseudo‑element, so it won't appear in context menus */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(0deg, rgba(10,10,10,0.85), rgba(10,10,10,0.85)),
+                url('https://i.postimg.cc/yNBYCLzC/Nxs-Forge-Logo-big.png') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+            pointer-events: none;   /* completely ignores mouse – no right‑click, no drag */
+        }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
@@ -19,12 +36,7 @@
             color: #ffffff;
             position: relative;
             overflow-x: hidden;
-            /* Background image with dark overlay */
-            background: 
-                linear-gradient(0deg, rgba(10,10,10,0.85), rgba(10,10,10,0.85)),
-                url('https://i.postimg.cc/yNBYCLzC/Nxs-Forge-Logo-big.png') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
+            /* no background here anymore */
         }
 
         /* Enhanced particles (layered on top of the background) */
