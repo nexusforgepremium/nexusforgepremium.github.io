@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusForge – Buy License</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/sD1BSmjY/Nexus-Force-Icon-Photoroom.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            color: #ffffff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced particles */
+        .particles {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.07);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            width: 100%;
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 36px;
+            padding: 2.5rem 2.2rem;
+            text-align: center;
+            animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
+            transition: transform 0.2s;
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-img {
+            width: 84px;
+            height: 84px;
+            margin-bottom: 1.2rem;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+        }
+        .brand-name {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+            color: #ffffff;
+            margin-bottom: 0.15rem;
+            line-height: 1.2;
+        }
+        .tagline {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.95rem 1.1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2) inset;
+        }
+        .input-group input:focus {
+            border-color: #ffffff;
+            background: rgba(255,255,255,0.06);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.08), 0 2px 8px rgba(0,0,0,0.4) inset;
+        }
+
+        /* Plan cards – redesigned */
+        .plan-cards {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 2.2rem;
+        }
+        .plan-card {
+            flex: 1;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 1.1rem 0.5rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.25s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            user-select: none;
+        }
+        .plan-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+        .plan-card.selected {
+            background: rgba(255,255,255,0.1);
+            border-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.15), 0 8px 20px rgba(0,0,0,0.7);
+            transform: translateY(-2px);
+        }
+        .plan-card .plan-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+        .plan-card .plan-price {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #f0f0f0;
+            margin: 0.3rem 0;
+            letter-spacing: -0.3px;
+        }
+        .plan-card .plan-desc {
+            font-size: 0.7rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        .plan-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ffffff;
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+        }
+        .hidden-radio {
+            display: none;
+        }
+
+        /* Buy button – premium */
+        .btn-buy {
+            width: 100%;
+            background: #ffffff;
+            color: #0a0a0a;
+            border: none;
+            padding: 1rem;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+            box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(255,255,255,0.35);
+            background: #f5f5f5;
+        }
+        .btn-buy:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+        }
+        .btn-buy:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            background: #cccccc;
+            color: #555;
+        }
+        .btn-buy .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-top: 2px solid #000;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .error-msg {
+            color: #ffaaaa;
+            margin-top: 1.2rem;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            background: rgba(255,0,0,0.08);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,0,0,0.2);
+        }
+        .success-msg {
+            color: #aaffaa;
+            margin-top: 1.2rem;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            background: rgba(0,255,0,0.08);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0,255,0,0.2);
+        }
+
+        .footer-note {
+            color: #555;
+            font-size: 0.7rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="container">
+        <img class="logo-img" src="https://i.postimg.cc/sD1BSmjY/Nexus-Force-Icon-Photoroom.png" alt="NexusForge Logo" width="84" height="84">
+        <div class="brand-name">NexusForge</div>
+        <p class="tagline">Select your plan and enter details</p>
+
+        <div class="input-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="John Doe" autocomplete="name">
+        </div>
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com" autocomplete="email">
+        </div>
+
+        <div class="plan-cards" id="plan-cards">
+            <div class="plan-card selected" data-plan="monthly">
+                <input type="radio" name="plan" value="monthly" class="hidden-radio" id="plan-monthly" checked>
+                <div class="plan-name">Monthly</div>
+                <div class="plan-price">₹299</div>
+                <div class="plan-desc">1 month</div>
+            </div>
+            <div class="plan-card" data-plan="quarterly">
+                <input type="radio" name="plan" value="quarterly" class="hidden-radio" id="plan-quarterly">
+                <span class="plan-badge">🔥 Popular</span>
+                <div class="plan-name">Quarterly</div>
+                <div class="plan-price">₹799</div>
+                <div class="plan-desc">3 months</div>
+            </div>
+            <div class="plan-card" data-plan="yearly">
+                <input type="radio" name="plan" value="yearly" class="hidden-radio" id="plan-yearly">
+                <span class="plan-badge">💎 Best Value</span>
+                <div class="plan-name">Yearly</div>
+                <div class="plan-price">₹2499</div>
+                <div class="plan-desc">12 months</div>
+            </div>
+        </div>
+
+        <button class="btn-buy" id="buy-btn">
+            <span class="btn-text">Buy Now</span>
+            <div class="spinner" id="btn-spinner"></div>
+        </button>
+        <div class="error-msg" id="error-msg">
+            <span>⚠️</span> <span id="error-text"></span>
+        </div>
+        <div class="success-msg" id="success-msg">
+            <span>✅</span> <span id="success-text"></span>
+        </div>
+        <div class="footer-note">Secure payment via Razorpay</div>
+    </div>
+
+    <script>
+        // ========== CONFIGURATION ==========
+        const WORKER2_URL = "https://license.cyberwolf-8bc.workers.dev";
+
+        // ========== ENHANCED PARTICLES ==========
+        (function() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 5 + 2;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.bottom = '-10px';
+                p.style.animationDuration = Math.random() * 22 + 12 + 's';
+                p.style.animationDelay = Math.random() * 15 + 's';
+                container.appendChild(p);
+            }
+        })();
+
+        // ========== PLAN CARD SELECTION ==========
+        const cards = document.querySelectorAll('.plan-card');
+        let selectedPlan = 'monthly';
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                cards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedPlan = card.dataset.plan;
+                document.getElementById(`plan-${selectedPlan}`).checked = true;
+            });
+        });
+
+        // ========== BUY BUTTON LOGIC ==========
+        const buyBtn = document.getElementById('buy-btn');
+        const btnText = document.querySelector('.btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const errorEl = document.getElementById('error-msg');
+        const errorText = document.getElementById('error-text');
+        const successEl = document.getElementById('success-msg');
+        const successText = document.getElementById('success-text');
+
+        function resetMessages() {
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+        }
+
+        function showError(msg) {
+            errorText.textContent = msg;
+            errorEl.style.display = 'flex';
+            successEl.style.display = 'none';
+        }
+
+        function showSuccess(msg) {
+            successText.textContent = msg;
+            successEl.style.display = 'flex';
+            errorEl.style.display = 'none';
+        }
+
+        buyBtn.addEventListener('click', async () => {
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+
+            resetMessages();
+
+            if (!name || !email) {
+                showError('Please fill in all fields.');
+                return;
+            }
+
+            // Disable button & show spinner
+            buyBtn.disabled = true;
+            btnText.textContent = 'Creating payment link';
+            btnSpinner.style.display = 'block';
+
+            try {
+                const res = await fetch(WORKER2_URL + '/create-payment-link', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        plan: selectedPlan,
+                        customerName: name,
+                        customerEmail: email
+                    })
+                });
+                const data = await res.json();
+                if (data.success && data.paymentLink) {
+                    showSuccess('Redirecting to payment gateway…');
+                    window.open(data.paymentLink, '_blank');
+                    btnText.textContent = 'Payment link opened';
+                    btnSpinner.style.display = 'none';
+                    // Keep disabled for a bit to prevent double-click
+                    setTimeout(() => {
+                        buyBtn.disabled = false;
+                        btnText.textContent = 'Buy Now';
+                        resetMessages();
+                    }, 3000);
+                } else {
+                    showError(data.error || 'Payment link creation failed.');
+                    btnText.textContent = 'Buy Now';
+                    btnSpinner.style.display = 'none';
+                    buyBtn.disabled = false;
+                }
+            } catch (err) {
+                showError('Network error. Please try again.');
+                btnText.textContent = 'Buy Now';
+                btnSpinner.style.display = 'none';
+                buyBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
